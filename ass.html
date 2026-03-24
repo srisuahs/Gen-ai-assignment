@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS5202 Prompt Engineering Assignment Guide</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1e3a8a', // Deep Blue (Udemy/Khan Academy vibe)
+                        secondary: '#3b82f6',
+                        accent: '#f59e0b',
+                        background: '#f8fafc',
+                        surface: '#ffffff',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
+        .nav-item.active { background-color: #eff6ff; color: #1e3a8a; border-left: 4px solid #1e3a8a; font-weight: 600; }
+        .nav-item { border-left: 4px solid transparent; transition: all 0.2s; }
+        .nav-item:hover:not(.active) { background-color: #f1f5f9; border-left: 4px solid #cbd5e1; }
+        .section-content { display: none; animation: fadeIn 0.3s ease-in-out; }
+        .section-content.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    </style>
+</head>
+<body class="text-slate-800 h-screen flex flex-col overflow-hidden">
+
+    <!-- Top Navigation -->
+    <header class="bg-primary text-white shadow-md z-10 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <i data-lucide="book-open" class="w-6 h-6 text-blue-200"></i>
+                <h1 class="text-xl font-bold tracking-tight">CS5202: Generative AI & LLMs</h1>
+            </div>
+            <div class="flex items-center gap-4 text-sm font-medium text-blue-100 hidden sm:flex">
+                <span><i data-lucide="calendar" class="w-4 h-4 inline mr-1"></i> Mar 17 - 29, 2026</span>
+                <span><i data-lucide="award" class="w-4 h-4 inline mr-1"></i> 100 Points</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Layout -->
+    <div class="flex flex-1 overflow-hidden max-w-7xl mx-auto w-full">
+        
+        <!-- Sidebar Navigation -->
+        <aside class="w-64 bg-surface border-r border-slate-200 overflow-y-auto hidden md:block shrink-0 shadow-sm z-0">
+            <div class="p-6">
+                <h2 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4">Course Content</h2>
+                <nav class="space-y-1">
+                    <button onclick="showSection('overview')" id="nav-overview" class="nav-item active w-full text-left px-4 py-3 rounded-r-md text-sm text-slate-600 flex items-center gap-3">
+                        <i data-lucide="layout-dashboard" class="w-4 h-4"></i> Overview & Setup
+                    </button>
+                    <button onclick="showSection('part-a')" id="nav-part-a" class="nav-item w-full text-left px-4 py-3 rounded-r-md text-sm text-slate-600 flex items-center gap-3">
+                        <i data-lucide="user" class="w-4 h-4"></i> Part A: Mirror Journal
+                    </button>
+                    <button onclick="showSection('part-b')" id="nav-part-b" class="nav-item w-full text-left px-4 py-3 rounded-r-md text-sm text-slate-600 flex items-center gap-3">
+                        <i data-lucide="terminal" class="w-4 h-4"></i> Part B: Technical Practicum
+                    </button>
+                    <button onclick="showSection('deliverables')" id="nav-deliverables" class="nav-item w-full text-left px-4 py-3 rounded-r-md text-sm text-slate-600 flex items-center gap-3">
+                        <i data-lucide="file-check-2" class="w-4 h-4"></i> Deliverables & Final
+                    </button>
+                    <button onclick="showSection('rubric')" id="nav-rubric" class="nav-item w-full text-left px-4 py-3 rounded-r-md text-sm text-slate-600 flex items-center gap-3">
+                        <i data-lucide="bar-chart-[0]" class="w-4 h-4"></i> Grading & Rules
+                    </button>
+                </nav>
+            </div>
+        </aside>
+
+        <!-- Content Area -->
+        <main class="flex-1 overflow-y-auto bg-background p-4 sm:p-8">
+            
+            <!-- SECTION: OVERVIEW -->
+            <section id="overview" class="section-content active max-w-4xl mx-auto">
+                <div class="mb-8">
+                    <h2 class="text-3xl font-bold text-slate-900 mb-2">Assignment Overview</h2>
+                    <p class="text-slate-600 text-lg">From Prompt Writing to Prompt Designing. Move from passively knowing techniques to actively evaluating frontier models.</p>
+                </div>
+
+                <div class="bg-surface border border-slate-200 rounded-xl p-6 shadow-sm mb-8">
+                    <h3 class="text-lg font-semibold text-slate-800 mb-4 flex items-center gap-2">
+                        <i data-lucide="target" class="w-5 h-5 text-secondary"></i> Core Objectives
+                    </h3>
+                    <ul class="space-y-3 text-slate-600 list-disc list-inside">
+                        <li>Apply the full range of prompting frameworks (Zero-shot, Few-shot, CoT, RAG, Metacognitive).</li>
+                        <li>Interact with LLMs programmatically via the <strong>OpenAI API</strong>.</li>
+                        <li>Develop the habit of treating AI outputs as raw material requiring human judgment.</li>
+                        <li>Evaluate responses across frontier models (GPT-4o, Claude 3.5, Gemini 1.5).</li>
+                    </ul>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                    <div class="bg-blue-50 border border-blue-100 rounded-xl p-6">
+                        <h4 class="font-bold text-blue-900 mb-2">Part A: The Mirror Journal</h4>
+                        <p class="text-blue-800 text-sm mb-4">A 7-session reflection exercise. Pick an arguable belief you hold and probe it using progressive prompting techniques.</p>
+                        <button onclick="showSection('part-a')" class="text-sm font-semibold text-blue-600 hover:text-blue-800 flex items-center gap-1">Go to Part A <i data-lucide="arrow-right" class="w-4 h-4"></i></button>
+                    </div>
+                    <div class="bg-indigo-50 border border-indigo-100 rounded-xl p-6">
+                        <h4 class="font-bold text-indigo-900 mb-2">Part B: Technical Practicum</h4>
+                        <p class="text-indigo-800 text-sm mb-4">Systematic application of standard technical skills, limitations analysis, model comparison, and API implementation.</p>
+                        <button onclick="showSection('part-b')" class="text-sm font-semibold text-indigo-600 hover:text-indigo-800 flex items-center gap-1">Go to Part B <i data-lucide="arrow-right" class="w-4 h-4"></i></button>
+                    </div>
+                </div>
+
+                <div class="bg-red-50 border-l-4 border-red-500 rounded-r-xl p-5 shadow-sm">
+                    <div class="flex gap-3">
+                        <i data-lucide="alert-triangle" class="w-6 h-6 text-red-500 shrink-0"></i>
+                        <div>
+                            <h4 class="font-bold text-red-800 text-sm">CRITICAL INSTRUCTION: The Anti-Delegation Rule</h4>
+                            <p class="text-red-700 text-sm mt-1">The Mirror Journal (Part A) cannot be delegated to AI. Submissions where reflections are generic, impersonal, or lack concrete examples from your own life will receive <strong>zero marks</strong> for that session. An oral check-in will verify authenticity.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION: PART A -->
+            <section id="part-a" class="section-content max-w-4xl mx-auto">
+                <div class="mb-8 border-b border-slate-200 pb-6">
+                    <h2 class="text-3xl font-bold text-slate-900 mb-2">Part A: The Mirror Journal</h2>
+                    <p class="text-slate-600">You are the authority here, not the AI. Document the conversation and your honest response to it.</p>
+                </div>
+
+                <div class="bg-surface border border-slate-200 rounded-xl p-6 shadow-sm mb-8">
+                    <h3 class="font-bold text-slate-800 mb-4 flex items-center gap-2">
+                        <i data-lucide="brain" class="w-5 h-5 text-accent"></i> Step 1: Choose Your Belief
+                    </h3>
+                    <p class="text-slate-600 text-sm mb-4">Select an arguable proposition (not just a preference) that you genuinely hold and are willing to have challenged.</p>
+                    <div class="grid grid-cols-2 gap-4 text-sm">
+                        <div class="bg-red-50 p-4 rounded-lg border border-red-100">
+                            <span class="font-bold text-red-800 flex items-center gap-1 mb-2"><i data-lucide="x-circle" class="w-4 h-4"></i> Too Vague (Do Not Use)</span>
+                            <ul class="text-red-700 list-disc list-inside space-y-1">
+                                <li>"I believe technology is useful."</li>
+                                <li>"Education in India needs reform."</li>
+                                <li>"AI is changing the world."</li>
+                            </ul>
+                        </div>
+                        <div class="bg-emerald-50 p-4 rounded-lg border border-emerald-100">
+                            <span class="font-bold text-emerald-800 flex items-center gap-1 mb-2"><i data-lucide="check-circle-2" class="w-4 h-4"></i> Specific Enough (Good)</span>
+                            <ul class="text-emerald-700 list-disc list-inside space-y-1">
+                                <li>"I believe learning to code from YouTube alone produces worse engineers..."</li>
+                                <li>"AI assistants make junior engineers intellectually lazy in ways visible after 2 years."</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 class="text-xl font-bold text-slate-800 mb-4">The Seven Mirror Sessions</h3>
+                <div class="space-y-4 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-slate-300 before:to-transparent">
+                    
+                    <!-- Session 1 -->
+                    <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+                        <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-white bg-secondary text-white font-bold shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 text-sm">1</div>
+                        <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-surface p-5 rounded-xl border border-slate-200 shadow-sm">
+                            <div class="text-xs font-bold text-secondary mb-1">Day 1 • Zero-Shot Prompting</div>
+                            <p class="text-sm text-slate-600 mb-2">State your belief to the AI plainly with no context or examples. Get its raw response.</p>
+                            <p class="text-xs text-slate-500 bg-slate-50 p-2 rounded"><strong>Reflection:</strong> What does the gap between your meaning and the AI's response say about your clarity?</p>
+                        </div>
+                    </div>
+
+                    <!-- Session 2 -->
+                    <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+                        <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-white bg-secondary text-white font-bold shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 text-sm">2</div>
+                        <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-surface p-5 rounded-xl border border-slate-200 shadow-sm">
+                            <div class="text-xs font-bold text-secondary mb-1">Day 2 • Role Prompting</div>
+                            <p class="text-sm text-slate-600 mb-2">Prompt the AI as a <em>rigorous skeptic</em>, then as the <em>strongest defender</em> of your belief.</p>
+                            <p class="text-xs text-slate-500 bg-slate-50 p-2 rounded"><strong>Reflection:</strong> Which role was more useful and what does it reveal about your belief?</p>
+                        </div>
+                    </div>
+
+                    <!-- Session 3 -->
+                    <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+                        <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-white bg-secondary text-white font-bold shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 text-sm">3</div>
+                        <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-surface p-5 rounded-xl border border-slate-200 shadow-sm">
+                            <div class="text-xs font-bold text-secondary mb-1">Day 3 • Few-Shot Prompting</div>
+                            <p class="text-sm text-slate-600 mb-2">Provide 3 concrete examples from your own life to test if personal context improves analysis.</p>
+                            <p class="text-xs text-slate-500 bg-slate-50 p-2 rounded"><strong>Reflection:</strong> Did you choose examples that test your belief, or just confirm it?</p>
+                        </div>
+                    </div>
+
+                    <!-- Session 4 -->
+                    <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+                        <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-white bg-secondary text-white font-bold shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 text-sm">4</div>
+                        <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-surface p-5 rounded-xl border border-slate-200 shadow-sm">
+                            <div class="text-xs font-bold text-secondary mb-1">Day 4 • Chain-of-Thought (CoT)</div>
+                            <p class="text-sm text-slate-600 mb-2">Force step-by-step reasoning. Identify one unjustified leap/flaw and challenge it in a follow-up.</p>
+                            <p class="text-xs text-slate-500 bg-slate-50 p-2 rounded"><strong>Reflection:</strong> Did catching the flaw require domain knowledge or just logic?</p>
+                        </div>
+                    </div>
+
+                    <!-- Session 5 -->
+                    <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+                        <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-white bg-secondary text-white font-bold shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 text-sm">5</div>
+                        <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-surface p-5 rounded-xl border border-slate-200 shadow-sm">
+                            <div class="text-xs font-bold text-secondary mb-1">Day 5 • Self-Consistency</div>
+                            <p class="text-sm text-slate-600 mb-2">Run the best CoT prompt 5 times. Apply majority-vote principle to conclusions.</p>
+                            <p class="text-xs text-slate-500 bg-slate-50 p-2 rounded"><strong>Reflection:</strong> Does AI consistency mean correctness or just confident error?</p>
+                        </div>
+                    </div>
+
+                    <!-- Session 6 -->
+                    <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+                        <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-white bg-secondary text-white font-bold shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 text-sm">6</div>
+                        <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-surface p-5 rounded-xl border border-slate-200 shadow-sm">
+                            <div class="text-xs font-bold text-secondary mb-1">Day 6 • Metacognitive Prompting</div>
+                            <p class="text-sm text-slate-600 mb-2">Ask AI to identify where it is least confident. Audit uncertainties against your knowledge.</p>
+                            <p class="text-xs text-slate-500 bg-slate-50 p-2 rounded"><strong>Reflection:</strong> Where is the boundary between AI reasoning and lived experience?</p>
+                        </div>
+                    </div>
+
+                    <!-- Session 7 -->
+                    <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+                        <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-white bg-accent text-white font-bold shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 text-sm">7</div>
+                        <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-surface p-5 rounded-xl border border-accent shadow-sm">
+                            <div class="text-xs font-bold text-accent mb-1">Day 7 • Synthesis Report</div>
+                            <p class="text-sm text-slate-600 mb-2">Write 500-700 words addressing belief status, technique ranking, AI as a mirror, and remaining questions.</p>
+                            <p class="text-xs text-accent bg-orange-50 p-2 rounded font-medium">No bullet points. Continuous prose only.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION: PART B -->
+            <section id="part-b" class="section-content max-w-4xl mx-auto">
+                <div class="mb-8 border-b border-slate-200 pb-6">
+                    <h2 class="text-3xl font-bold text-slate-900 mb-2">Part B: Technical Practicum</h2>
+                    <p class="text-slate-600">Apply the techniques learned in Part A to technical tasks. Structured, replicable formats.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+                    <!-- B1 -->
+                    <div class="bg-surface border border-slate-200 rounded-xl p-5 hover:shadow-md transition">
+                        <div class="flex justify-between items-start mb-2">
+                            <h4 class="font-bold text-slate-800">B1: Prompting Basics</h4>
+                            <span class="text-xs bg-slate-100 px-2 py-1 rounded text-slate-500">Days 1-2</span>
+                        </div>
+                        <p class="text-sm text-slate-600 mb-3">Compare Zero-shot, Instruction, and Few-shot prompts on one moderate task.</p>
+                        <div class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Deliverable:</div>
+                        <p class="text-xs text-slate-500 mt-1">Prompts, outputs, 150-200 word comparison.</p>
+                    </div>
+
+                    <!-- B2 -->
+                    <div class="bg-surface border border-slate-200 rounded-xl p-5 hover:shadow-md transition">
+                        <div class="flex justify-between items-start mb-2">
+                            <h4 class="font-bold text-slate-800">B2: Design Principles</h4>
+                            <span class="text-xs bg-slate-100 px-2 py-1 rounded text-slate-500">Days 2-3</span>
+                        </div>
+                        <p class="text-sm text-slate-600 mb-3">Redesign B1's weakest prompt using constraints, format specs, and negative constraints.</p>
+                        <div class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Deliverable:</div>
+                        <p class="text-xs text-slate-500 mt-1">Before/After prompts & outputs, 200w reflection.</p>
+                    </div>
+
+                    <!-- B3 -->
+                    <div class="bg-surface border border-slate-200 rounded-xl p-5 hover:shadow-md transition">
+                        <div class="flex justify-between items-start mb-2">
+                            <h4 class="font-bold text-slate-800">B3: Chain-of-Thought</h4>
+                            <span class="text-xs bg-slate-100 px-2 py-1 rounded text-slate-500">Days 3-4</span>
+                        </div>
+                        <p class="text-sm text-slate-600 mb-3">Compare Direct Answer, open CoT, and Structured CoT on multi-step reasoning.</p>
+                        <div class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Deliverable:</div>
+                        <p class="text-xs text-slate-500 mt-1">Outputs, 250w analysis on structured vs open CoT.</p>
+                    </div>
+
+                    <!-- B4 -->
+                    <div class="bg-surface border border-slate-200 rounded-xl p-5 hover:shadow-md transition">
+                        <div class="flex justify-between items-start mb-2">
+                            <h4 class="font-bold text-slate-800">B4: Self-Consistency</h4>
+                            <span class="text-xs bg-slate-100 px-2 py-1 rounded text-slate-500">Days 4-5</span>
+                        </div>
+                        <p class="text-sm text-slate-600 mb-3">Run the CoT prompt from B3 five times. Apply majority vote.</p>
+                        <div class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Deliverable:</div>
+                        <p class="text-xs text-slate-500 mt-1">5 outputs, final answer, 1 paragraph variance analysis.</p>
+                    </div>
+
+                    <!-- B5 -->
+                    <div class="bg-surface border border-slate-200 rounded-xl p-5 hover:shadow-md transition">
+                        <div class="flex justify-between items-start mb-2">
+                            <h4 class="font-bold text-slate-800">B5: RAG</h4>
+                            <span class="text-xs bg-slate-100 px-2 py-1 rounded text-slate-500">Days 5-6</span>
+                        </div>
+                        <p class="text-sm text-slate-600 mb-3">Ask a factual question plain, then grounded in a text excerpt. (+5 Bonus for Python FAISS).</p>
+                        <div class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Deliverable:</div>
+                        <p class="text-xs text-slate-500 mt-1">Comparisons, 200w explanation of RAG modes.</p>
+                    </div>
+
+                    <!-- B6 -->
+                    <div class="bg-surface border border-slate-200 rounded-xl p-5 hover:shadow-md transition">
+                        <div class="flex justify-between items-start mb-2">
+                            <h4 class="font-bold text-slate-800">B6: Limitations of LLMs</h4>
+                            <span class="text-xs bg-slate-100 px-2 py-1 rounded text-slate-500">Days 6-7</span>
+                        </div>
+                        <p class="text-sm text-slate-600 mb-3">Deliberately provoke a hallucination, a bias, and context degradation.</p>
+                        <div class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Deliverable:</div>
+                        <p class="text-xs text-slate-500 mt-1">Evidence for each, 1 paragraph per limitation.</p>
+                    </div>
+
+                    <!-- B7 -->
+                    <div class="bg-surface border border-slate-200 rounded-xl p-5 hover:shadow-md transition col-span-1 md:col-span-2">
+                        <div class="flex justify-between items-start mb-2">
+                            <h4 class="font-bold text-slate-800">B7: Model Comparison</h4>
+                            <span class="text-xs bg-slate-100 px-2 py-1 rounded text-slate-500">Days 7-8</span>
+                        </div>
+                        <p class="text-sm text-slate-600 mb-3">Design a challenging prompt and run it across at least 3 frontier models (e.g., GPT-4o, Claude 3.5, Gemini 1.5, DeepSeek).</p>
+                        <div class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Deliverable:</div>
+                        <p class="text-xs text-slate-500 mt-1">Comparison table (accuracy, reasoning, conciseness, failures) and 300w analysis.</p>
+                    </div>
+                </div>
+
+                <!-- B8 API -->
+                <div class="bg-slate-900 text-white rounded-xl p-6 shadow-lg mb-8">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-xl font-bold flex items-center gap-2">
+                            <i data-lucide="code-2" class="w-5 h-5 text-blue-400"></i> B8: OpenAI API Implementation
+                        </h3>
+                        <span class="text-xs bg-slate-800 px-2 py-1 rounded text-slate-300">Days 8-10</span>
+                    </div>
+                    
+                    <p class="text-sm text-slate-300 mb-4">You must programmatically interact with the model using Python.</p>
+                    
+                    <div class="space-y-4 text-sm">
+                        <div class="bg-slate-800 p-3 rounded border border-slate-700">
+                            <span class="font-bold text-blue-400">T1:</span> Basic Prompt. Run a prompt of choice.
+                        </div>
+                        <div class="bg-slate-800 p-3 rounded border border-slate-700">
+                            <span class="font-bold text-blue-400">T2:</span> CoT via API. Add a system message: <code class="bg-slate-900 px-1 text-green-400">"You are a careful reasoner. Think step by step."</code>
+                        </div>
+                        <div class="bg-slate-800 p-3 rounded border border-slate-700">
+                            <span class="font-bold text-blue-400">T3:</span> Self-Consistency via API. Write a loop to run the same prompt 5 times and print outputs.
+                        </div>
+                        <div class="bg-slate-800 p-3 rounded border border-slate-700">
+                            <span class="font-bold text-blue-400">T4:</span> Temperature Experiment. Run at <code>0.0</code>, <code>0.5</code>, and <code>1.0</code>.
+                        </div>
+                    </div>
+
+                    <div class="mt-4 bg-red-900/50 border border-red-500/50 p-4 rounded text-sm text-red-200 flex items-start gap-3">
+                        <i data-lucide="shield-alert" class="w-5 h-5 shrink-0 text-red-400"></i>
+                        <p><strong>API Key Safety:</strong> Never include your actual API key in your submitted report. Replace it with <code>"YOUR_API_KEY"</code> before submitting. Failure results in a <strong>-10 mark penalty</strong>.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION: DELIVERABLES -->
+            <section id="deliverables" class="section-content max-w-4xl mx-auto">
+                <div class="mb-8 border-b border-slate-200 pb-6">
+                    <h2 class="text-3xl font-bold text-slate-900 mb-2">Final Deliverables & Submission</h2>
+                    <p class="text-slate-600">Submit all four components as a single PDF. Filename format: <code class="bg-slate-100 px-2 py-1 rounded text-primary">ROLLNO_CS5202.pdf</code></p>
+                </div>
+
+                <div class="space-y-4 mb-8">
+                    <div class="flex items-start gap-4 bg-surface p-5 rounded-xl border border-slate-200">
+                        <div class="bg-blue-100 p-2 rounded-lg"><i data-lucide="file-text" class="w-6 h-6 text-blue-600"></i></div>
+                        <div>
+                            <h4 class="font-bold text-slate-800">D1. Mirror Journal (Part A)</h4>
+                            <p class="text-sm text-slate-600">7 session entries (prompt, summary, reflection) + 500-700 word Synthesis.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start gap-4 bg-surface p-5 rounded-xl border border-slate-200">
+                        <div class="bg-indigo-100 p-2 rounded-lg"><i data-lucide="cpu" class="w-6 h-6 text-indigo-600"></i></div>
+                        <div>
+                            <h4 class="font-bold text-slate-800">D2. Technical Practicum (Part B)</h4>
+                            <p class="text-sm text-slate-600">Tasks B1-B8 with all required prompts, outputs, comparisons, and analysis.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-4 bg-surface p-5 rounded-xl border border-slate-200">
+                        <div class="bg-emerald-100 p-2 rounded-lg"><i data-lucide="code" class="w-6 h-6 text-emerald-600"></i></div>
+                        <div>
+                            <h4 class="font-bold text-slate-800">D3. API Code</h4>
+                            <p class="text-sm text-slate-600">Working code for B8 (screenshots or blocks). API key redacted.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-4 bg-surface p-5 rounded-xl border border-slate-200">
+                        <div class="bg-purple-100 p-2 rounded-lg"><i data-lucide="pen-tool" class="w-6 h-6 text-purple-600"></i></div>
+                        <div>
+                            <h4 class="font-bold text-slate-800">D4. Final Reflection</h4>
+                            <p class="text-sm text-slate-600">400-500 words addressing key learning, best technique, LLM limitations, and AI as a mirror.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION: RUBRIC & RULES -->
+            <section id="rubric" class="section-content max-w-4xl mx-auto">
+                <div class="mb-8 border-b border-slate-200 pb-6">
+                    <h2 class="text-3xl font-bold text-slate-900 mb-2">Grading Rubric & Integrity Rules</h2>
+                    <p class="text-slate-600">Understand exactly how you will be evaluated.</p>
+                </div>
+
+                <div class="bg-surface rounded-xl border border-slate-200 overflow-hidden mb-8 shadow-sm">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-slate-50 text-slate-800 border-b border-slate-200">
+                                <th class="p-4 font-semibold">Component</th>
+                                <th class="p-4 font-semibold">What We Look For</th>
+                                <th class="p-4 font-semibold w-24 text-right">Marks</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-sm">
+                            <tr class="border-b border-slate-100">
+                                <td class="p-4 font-medium text-slate-800">Mirror Journal - Specificity</td>
+                                <td class="p-4 text-slate-600">Grounded in actual belief & personal examples. Generic entries = 0.</td>
+                                <td class="p-4 text-right font-bold text-slate-800">15</td>
+                            </tr>
+                            <tr class="border-b border-slate-100">
+                                <td class="p-4 font-medium text-slate-800">Mirror Journal - Reflection Depth</td>
+                                <td class="p-4 text-slate-600">Independent thinking; honest engagement including disagreement.</td>
+                                <td class="p-4 text-right font-bold text-slate-800">15</td>
+                            </tr>
+                            <tr class="border-b border-slate-100 bg-slate-50/50">
+                                <td class="p-4 font-medium text-slate-800">Prompt Design Quality</td>
+                                <td class="p-4 text-slate-600">Well-constructed with explicit reasoning for design choices.</td>
+                                <td class="p-4 text-right font-bold text-slate-800">15</td>
+                            </tr>
+                            <tr class="border-b border-slate-100 bg-slate-50/50">
+                                <td class="p-4 font-medium text-slate-800">Technique Application</td>
+                                <td class="p-4 text-slate-600">Correct use of CoT, self-consistency, RAG, etc.</td>
+                                <td class="p-4 text-right font-bold text-slate-800">20</td>
+                            </tr>
+                            <tr class="border-b border-slate-100">
+                                <td class="p-4 font-medium text-slate-800">API Implementation</td>
+                                <td class="p-4 text-slate-600">Working code, correct parameter usage.</td>
+                                <td class="p-4 text-right font-bold text-slate-800">15</td>
+                            </tr>
+                            <tr class="border-b border-slate-100">
+                                <td class="p-4 font-medium text-slate-800">Critical Analysis</td>
+                                <td class="p-4 text-slate-600">Quality of comparisons, limitation analysis.</td>
+                                <td class="p-4 text-right font-bold text-slate-800">15</td>
+                            </tr>
+                            <tr>
+                                <td class="p-4 font-medium text-slate-800">Communication</td>
+                                <td class="p-4 text-slate-600">Report organization and writing clarity.</td>
+                                <td class="p-4 text-right font-bold text-slate-800">5</td>
+                            </tr>
+                        </tbody>
+                        <tfoot class="bg-slate-800 text-white">
+                            <tr>
+                                <td colspan="2" class="p-4 text-right font-bold text-lg">Total Score:</td>
+                                <td class="p-4 text-right font-bold text-lg">100</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                    <!-- Bonus Points -->
+                    <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-5">
+                        <h4 class="font-bold text-emerald-800 mb-3 flex items-center gap-2">
+                            <i data-lucide="trending-up" class="w-5 h-5"></i> Bonus Marks (+10)
+                        </h4>
+                        <ul class="text-sm text-emerald-700 space-y-2">
+                            <li><strong>+5:</strong> Implement mini RAG with FAISS/ChromaDB.</li>
+                            <li><strong>+3:</strong> Tree-of-Thoughts vs standard CoT.</li>
+                            <li><strong>+2:</strong> Compare two API providers programmatically.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Penalties -->
+                    <div class="bg-red-50 border border-red-200 rounded-xl p-5">
+                        <h4 class="font-bold text-red-800 mb-3 flex items-center gap-2">
+                            <i data-lucide="trending-down" class="w-5 h-5"></i> Strict Penalties
+                        </h4>
+                        <ul class="text-sm text-red-700 space-y-2">
+                            <li><strong>-20:</strong> Generic Mirror Journal entries.</li>
+                            <li><strong>-15:</strong> Per day late.</li>
+                            <li><strong>-10:</strong> Live API key included.</li>
+                            <li><strong>ZERO:</strong> Fabricated outputs / Plagiarism.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Academic Integrity -->
+                <div class="bg-orange-50 border border-orange-200 rounded-xl p-6 relative overflow-hidden">
+                    <div class="absolute -right-4 -top-4 opacity-10">
+                        <i data-lucide="gavel" class="w-32 h-32 text-orange-900"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-orange-900 mb-2 relative z-10">Enforcement: The Oral Check-in</h3>
+                    <p class="text-sm text-orange-800 relative z-10">
+                        A randomly selected 15-20% of students will be called for a 10-minute check-in. You must walk through one Mirror Session and explain one Part B technical choice. <strong>Plan as if you will be called.</strong>
+                    </p>
+                </div>
+            </section>
+            
+            <div class="mt-12 text-center text-sm text-slate-400 pb-8">
+                Designed objectively for CS5202 • "Prompting is a skill built through deliberate, reflective practice."
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Simple Tab Navigation Script
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.section-content').forEach(el => {
+                el.classList.remove('active');
+            });
+            // Remove active state from all nav items
+            document.querySelectorAll('.nav-item').forEach(el => {
+                el.classList.remove('active');
+            });
+            
+            // Show target section
+            document.getElementById(sectionId).classList.add('active');
+            // Set active nav item
+            document.getElementById('nav-' + sectionId).classList.add('active');
+            
+            // Scroll to top of content area smoothly
+            document.querySelector('main').scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v8c78df7c7c0f484497ecbca7046644da1771523124516" integrity="sha512-8DS7rgIrAmghBFwoOTujcf6D9rXvH8xm8JQ1Ja01h9QX8EzXldiszufYa4IFfKdLUKTTrnSFXLDkUEOTrZQ8Qg==" data-cf-beacon='{"version":"2024.11.0","token":"2a0ed7740ddf47e4b53fa70bc1b93984","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+</body>
+</html>
